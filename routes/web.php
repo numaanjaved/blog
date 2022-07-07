@@ -1,11 +1,8 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
-
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Category;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,29 +15,7 @@ use App\Models\Category;
 |
 */
 
-Route::get('/', function () {
-    return view('posts', [
-        'posts' => Post::latest()->get()
-    ]);
-});
-Route::get('posts/{post:slug}', function(Post $post){
-    // find a post by its slug and pass it to view post
-    
-    return view('post', [
-        'post' => $post
-    ]);
-});
-   
-Route::get('categories/{category}', function(Category $category){
-    // find a post by its slug and pass it to view post
-    
-    return view('posts', [
-        'posts' => $category->posts
-    ]);
-});
-Route::get('users/{user:username}', function(User $user){
-    // find a post by its slug and pass it to view post
-    return view('posts', [
-        'posts' => $user->posts
-    ]);
-});
+Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('posts/{post:slug}', [PostController::class, 'show'])->name('post');
+
+Route::get('register', [RegisterController::class, 'create']);

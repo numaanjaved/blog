@@ -15,10 +15,7 @@
     <div class="lg:grid lg:grid-cols-3">
         {{-- {{__($posts)}} --}}
         @foreach($posts->skip(3) as $post)
-            @if($loop->iteration < 3)
-                <x-post-card :post="$post"/>
-            @endif
-
+            <x-post-card :post="$post"/>
         @endforeach
     </div>
 @endif
